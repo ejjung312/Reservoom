@@ -22,14 +22,14 @@ namespace Reservoom.Models
             EndTime = endTime;
         }
 
-        internal bool Conflicts(Reservation reservation)
+        public bool Conflicts(Reservation reservation)
         {
             if (reservation.RoomID != RoomID)
             {
                 return false;
             }
 
-            return reservation.StartTime < EndTime && reservation.EndTime > StartTime;
+            return reservation.StartTime <= EndTime && reservation.EndTime >= StartTime;
         }
     }
 }
