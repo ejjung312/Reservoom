@@ -1,6 +1,7 @@
 ﻿using Reservoom.Exceptions;
 using Reservoom.Models;
 using Reservoom.Services;
+using Reservoom.Stores;
 using Reservoom.ViewModels;
 using System.Windows;
 
@@ -8,14 +9,14 @@ namespace Reservoom.Commands
 {
     public class MakeReservationCommand : AsyncCommandBase
     {
-        private readonly Hotel _hotel;
+        private readonly HotelStore _hotelStore;
         private readonly NavigationService _reservationViewNavigationService;
         private MakeReservationViewModel _makeReservationViewModel;
 
-        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, Hotel hotel, NavigationService reservationViewNavigationService)
+        public MakeReservationCommand(MakeReservationViewModel makeReservationViewModel, HotelStore hotelStore, NavigationService reservationViewNavigationService)
         {
             this._makeReservationViewModel = makeReservationViewModel;
-            this._hotel = hotel;
+            this._hotelStore = hotelStore;
             this._reservationViewNavigationService = reservationViewNavigationService;
 
             _makeReservationViewModel.PropertyChanged += _makeReservationViewModel_PropertyChanged;
@@ -46,7 +47,7 @@ namespace Reservoom.Commands
 
             try
             {
-                await _hotel.MakeReservation(reservation);
+                await _hotelStore.MakeReservation(reservation);
 
                 MessageBox.Show("Successfully reserved room.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 

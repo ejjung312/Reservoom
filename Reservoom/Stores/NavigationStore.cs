@@ -16,6 +16,7 @@ namespace Reservoom.Stores
             get => _currnetViewModel;
             set
             {
+                _currnetViewModel?.Dispose();
                 _currnetViewModel = value;
                 OnCurrnetViewModelChanged();
             }
