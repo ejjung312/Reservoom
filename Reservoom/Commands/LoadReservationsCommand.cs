@@ -1,11 +1,5 @@
-﻿using Reservoom.Models;
-using Reservoom.Stores;
+﻿using Reservoom.Stores;
 using Reservoom.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Reservoom.Commands
@@ -23,6 +17,9 @@ namespace Reservoom.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
+            _viewModel.ErrorMessage = string.Empty;
+            _viewModel.IsLoading = true;
+
             try
             {
                 await _hotelStore.Load();
@@ -31,8 +28,10 @@ namespace Reservoom.Commands
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to load reservations.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _viewModel.ErrorMessage = "Failed to load reservations.";
             }
+
+            _viewModel.IsLoading = false;
         }
     }
 }
