@@ -11,7 +11,7 @@ namespace Reservoom.Models
             _reservations = new List<Reservation>();
         }
 
-        public IEnumerable<Reservation> GetAllReservations(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
             return _reservations;
         }

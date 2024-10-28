@@ -18,9 +18,9 @@
             _reservationBook = reservationBook;
         }
 
-        public IEnumerable<Reservation> GetAllReservations(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
-            return _reservationBook.GetAllReservations(username);
+            return _reservationBook.GetAllReservations();
         }
 
         public void MakeReservation(Reservation reservation)

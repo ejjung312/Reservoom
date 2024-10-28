@@ -1,20 +1,23 @@
-﻿using Reservoom.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Reservoom.Stores;
 
 namespace Reservoom.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
+        private readonly NavigationStore _navigationStore;
 
-        public MainViewModel(Hotel hotel)
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new ReservationListingViewModel();
-            //CurrentViewModel = new MakeReservationViewModel(hotel);
+            _navigationStore = navigationStore;
+
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }
