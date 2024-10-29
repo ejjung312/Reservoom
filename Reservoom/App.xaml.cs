@@ -40,7 +40,8 @@ namespace Reservoom
                 services.AddSingleton<IReservationConflictValidator, DatabaseReservationConflictValidator>();
 
                 services.AddTransient<ReservationBook>();
-                services.AddSingleton((s) => new Hotel("SingletonSean Suites", s.GetRequiredService<ReservationBook>()));
+                string hotelName = hostContext.Configuration.GetValue<string>("HotelName");
+                services.AddSingleton((s) => new Hotel(hotelName, s.GetRequiredService<ReservationBook>()));
 
                 services.AddSingleton<HotelStore>();
                 services.AddSingleton<NavigationStore>();
