@@ -1,5 +1,4 @@
 ﻿using Reservoom.Commands;
-using Reservoom.Models;
 using Reservoom.Stores;
 using System.Collections;
 using System.ComponentModel;
@@ -128,10 +127,10 @@ namespace Reservoom.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-        public MakeReservationViewModel(HotelStore hotelStore, Services.NavigationService reservationViewNavigationService)
+        public MakeReservationViewModel(HotelStore hotelStore, Services.NavigationService<ReservationListingViewModel> reservationViewNavigationService)
         {
 			SubmitCommand = new MakeReservationCommand(this, hotelStore, reservationViewNavigationService);
-			CancelCommand = new NavigateCommand(reservationViewNavigationService);
+			CancelCommand = new NavigateCommand<ReservationListingViewModel>(reservationViewNavigationService);
 
 			_propertyNameToErrorsDictionary = new Dictionary<string, List<string>>();
         }
